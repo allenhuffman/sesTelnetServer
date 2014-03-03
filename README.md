@@ -11,14 +11,12 @@ http://arduino.cc/en/Reference/Ethernet
 
 The example has been split up to make it easy to implement.
 
-===============================================================================
 REVISION
-===============================================================================
+========
 2014-03-03 allenh - Initial, hastily created README file.
 
-===============================================================================
 FILES
-===============================================================================
+=====
 
 README.md               - this file
 sesATParser.ino         - Hayes AT command parser, "+++" to enter command mode
@@ -26,9 +24,8 @@ sesTelnetServer.ino     - the actual Telnet server code
 sesTelnetServerConfig.h - IP/Mac address and some debug on/off build settings
 TelnetServerDemo.ino    - end-user demo program on how to use the server
 
-===============================================================================
 CONFIGURATION
-===============================================================================
+=============
 
 Edit the sesTelnetServerConfig.h as appropriate:
 
@@ -80,9 +77,8 @@ byte ip[] FLASHMEM  = { 192, 168, 0, 200};
   message user-definable since I could not find anything in the RFC that
   said what it was supposed to be.
 
-===============================================================================
 RUNNING
-===============================================================================
+=======
  
  When configured and built, the program will monitor the Serial console and
  listen for incoming connections. At the console, typing "+++" with a pause
