@@ -26,18 +26,6 @@ __asm volatile ("nop");
  -----------------------------------------------------------------------------*/
 #define VERSION "1.00"
 
-// Define this to make all the strings live in Flash instead of RAM.
-#define USE_FLASH
-
-// Define this to include printing basic Telnet protocol information. This
-// will include a bunch of Flash strings.
-#define TELNET_DEBUG // takes about 1176 bytes of Flash + 14 bytes of RAM.
-
-// Define this to use multiserver support,but only if you have fixed your
-// Ethernet library to allow it. See:
-// http://subethasoftware.com/2013/04/09/arduino-ethernet-and-multiple-socket-server-connections/
-//#define TELNET_MULTISERVER
-
 #ifdef USE_FLASH
 #define FLASHMEM PROGMEM
 #define FLASHSTR(x) (const __FlashStringHelper*)(x)
@@ -58,14 +46,7 @@ __asm volatile ("nop");
 #include <SPI.h>
 #include <Ethernet.h>
 
-// Configure MAC address and IP address.
-byte mac[] FLASHMEM = { 
-  0x2A, 0xA0, 0xD8, 0xFC, 0x8B, 0xEF };
-byte ip[] FLASHMEM  = { 
-  192, 168, 0, 200};
-
-#define TELNETID  "Sub-Etha Software's Arduino Telnet server."
-#define TELNETAYT "Yes. Why do you ask?"
+#include "sesTelnetServerConfig.h"
 
 /*---------------------------------------------------------------------------*/
 // PROTOTYPES
@@ -465,70 +446,6 @@ TelnetOptStruct telnetOpt[] FLASHMEM =
 
 const char telnetID[]  FLASHMEM = TELNETID;
 const char telnetAYT[] FLASHMEM = TELNETAYT;
-
-void setup()
-{
-  Serial.begin(9600);
-  while(!Serial);
-
-  Serial.println();
-  Serial.println(FLASHSTR(telnetID));
-
-  showFreeRam();
-
-  telnetInit();
-}
-
-#define INPUT_SIZE 40
-void loop()
-{
-  char buffer[INPUT_SIZE];
-  byte count;
-
-  showFreeRam();
-
-  if (offlineMode)
-  {
-    Serial.print(F("[Offline]Command: "));
-  }
-  else if (telnetConnected)
-  {
-    client.print(F("[Telnet]Command: "));
-    Serial.print(F("[Telnet]Command: "));
-  }
-  count = telnetInput(client, buffer, INPUT_SIZE);
-  if (count==255)
-  {
-    Serial.println(F("[Connection Lost]"));
-  }
-  else
-  {
-    Serial.print(count);
-    Serial.println(F(" bytes received from client."));
-  }
-  if (strcmp_P(buffer, PSTR("BYE"))==0)
-  {
-    if (offlineMode)
-    {
-      Serial.println(F("[Online Mode]"));
-      offlineMode = false;
-    }
-    if (telnetConnected==true) telnetDisconnect();
-  }
-}
-
-unsigned int freeRam()
-{
-  extern int __heap_start, *__brkval; 
-  int v; 
-  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
-}
-
-void showFreeRam()
-{
-  Serial.print(F("Free RAM: "));
-  Serial.println(freeRam());
-}
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
@@ -1237,8 +1154,4 @@ void telnetPrintHex(byte val)
 #endif // #if defined(TELNET_DEBUG)
 /*---------------------------------------------------------------------------*/
 // End of TelnetServer
-
-
-
-
 
