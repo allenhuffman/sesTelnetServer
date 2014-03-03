@@ -18,19 +18,21 @@ REVISION
 FILES
 =====
 
-README.md               - this file
-sesATParser.ino         - Hayes AT command parser, "+++" to enter command mode
-sesTelnetServer.ino     - the actual Telnet server code
-sesTelnetServerConfig.h - IP/Mac address and some debug on/off build settings
-TelnetServerDemo.ino    - end-user demo program on how to use the server
+* README.md - this file
+* sesATParser.ino - Hayes AT command parser, "+++" to enter command mode
+* sesTelnetServer.ino - the actual Telnet server code
+* sesTelnetServerConfig.h - IP/Mac address and some debug on/off build settings
+* TelnetServerDemo.ino - end-user demo program on how to use the server
 
 CONFIGURATION
 =============
 
 Edit the sesTelnetServerConfig.h as appropriate:
 
+```
 // Define this to make all the strings live in Flash instead of RAM.
 #define USE_FLASH
+```
 
 * If defined, the sesTelnetServer will be compiled to put all strings in flash
   storage. This is recommended and even required if doing the debug build,
@@ -38,19 +40,23 @@ Edit the sesTelnetServerConfig.h as appropriate:
   had enough free RAM, you could comment this out and the program would run
   faster without all the extra code to access flash storage.
   
+```
 // Define this to include printing basic Telnet protocol information. This
 // will include a bunch of Flash strings.
 #define TELNET_DEBUG // takes about 1176 bytes of Flash + 14 bytes of RAM.
+```
 
 * If defined, the sesTelnetServer will print out a ton of Telnet debug
   information on the protocol/commands being parsed. This is a fun way to see
   what all is going on with Telnet, but there is no reason you would want to
   enable this for production.
-  
+
+```  
 // Define this to use multiserver support,but only if you have fixed your
 // Ethernet library to allow it. See:
 // http://subethasoftware.com/2013/04/09/arduino-ethernet-and-multiple-socket-server-connections/
 //#define TELNET_MULTISERVER
+```
 
 * As of the time I created this code, there was a bug in the Arduino Ethernet
   library that was preventing it from handling multiple incoming socket
@@ -60,15 +66,19 @@ Edit the sesTelnetServerConfig.h as appropriate:
   a second connection is attempted, that connection will connect and a
   "server is busy, please try later" message will be sent back. Without this,
   connections would just hang and timeout while the server is in use.
-  
+
+```  
 // Configure telnet server MAC address and IP address.
 byte mac[] FLASHMEM = { 0x2A, 0xA0, 0xD8, 0xFC, 0x8B, 0xEF };
 byte ip[] FLASHMEM  = { 192, 168, 0, 200};
+```
 
 * Server MAC address and IP address. Standard Arduino ethernet library stuff.
 
+```
 #define TELNETID  "Sub-Etha Software's Arduino Telnet server."
 #define TELNETAYT "Yes. Why do you ask?"
+```
 
 * These two strings are used by the Telnet protocol. The first is an ID
   message sent to the client when they first connect, and the second is the
