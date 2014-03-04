@@ -2,6 +2,9 @@
 // Define this to make all the strings live in Flash instead of RAM.
 #define USE_FLASH
 
+// Then include this to get the FLASHMEM, FLASTSTR, and FLASHPTR defines.
+#include "FlashMem.h"
+
 // Define this to include printing basic Telnet protocol information. This
 // will include a bunch of Flash strings.
 #define TELNET_DEBUG // takes about 1176 bytes of Flash + 14 bytes of RAM.
