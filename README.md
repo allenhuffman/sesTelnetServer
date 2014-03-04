@@ -11,6 +11,11 @@ http://arduino.cc/en/Reference/Ethernet
 
 The example has been split up to make it easy to implement.
 
+See my original articles:
+
+http://subethasoftware.com/2013/04/12/telnet-is-pretty-cool/
+http://subethasoftware.com/2013/04/15/sub-etha-softwares-arduino-telnet-server/
+
 REVISION
 ========
 2014-03-03 allenh - Initial, hastily created README file.
