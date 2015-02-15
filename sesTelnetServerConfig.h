@@ -15,9 +15,12 @@
 //#define TELNET_MULTISERVER
 
 // Configure telnet server MAC address and IP address.
-byte mac[] FLASHMEM = { 0x2A, 0xA0, 0xD8, 0xFC, 0x8B, 0xEF };
-byte ip[] FLASHMEM  = { 192, 168, 0, 200};
+const byte mac[] FLASHMEM = { 0x2A, 0xA0, 0xD8, 0xFC, 0x8B, 0xEF };
+const byte ip[] FLASHMEM  = { 192, 168, 0, 200};
 
+// Define the ID string sent to the user upon initial connection.
 #define TELNETID  "Sub-Etha Software's Arduino Telnet server."
+
+// Define the AYT (Are You There) response string.
 #define TELNETAYT "Yes. Why do you ask?"
 

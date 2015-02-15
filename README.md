@@ -19,6 +19,9 @@ http://subethasoftware.com/2013/04/15/sub-etha-softwares-arduino-telnet-server/
 REVISION
 ========
 2014-03-03 allenh - Initial, hastily created README file.
+2015-02-14 allenh - To build for Arduino 1.6.0, I needed to add some "const"
+           declarations to some of the PROGMEM flash strings. Expanded the
+           "RUNNING" section of this README.
 
 FILES
 =====
@@ -81,7 +84,10 @@ byte ip[] FLASHMEM  = { 192, 168, 0, 200};
 * Server MAC address and IP address. Standard Arduino ethernet library stuff.
 
 ```
+// Define the ID string sent to the user upon initial connection.
 #define TELNETID  "Sub-Etha Software's Arduino Telnet server."
+
+// Define the AYT (Are You There) response string.
 #define TELNETAYT "Yes. Why do you ask?"
 ```
 
@@ -96,14 +102,34 @@ RUNNING
 =======
  
  When configured and built, the program will monitor the Serial console and
- listen for incoming connections. At the console, typing "+++" with a pause
- before and after (about one second) will enter command mode. There only
- command implemented is "BYE" to disconnect an active connection or escape
- from command mode.
+ listen for incoming connections. If you "telnet" in, you will receive the
+ TELNETID string, then be at a "[Telnet]Command:" prompt. For the demo,
+ the only command implemented is "BYE" which will disconnect the session.
  
+ At the console, when "[Waiting on Connection]", typing anything will enter
+ the "[Offline]Command:" mode. This will disable incoming telnet
+ connections until you type "BYE" to return to listening for connections.
+ (This needs to be enhanced to send a message back to any incoming
+ connection attempts saying "The system is in use. Please try back later."
+ I will add this in the next update.)
+ 
+ At any time from the console, whether in Offline mode, or with an active
+ telnet session in progress, the Hayes-modem style escape sequence may
+ be used. Typing "+++" with a pause before and after (about one second) will
+ enter command mode and an "OK" prompt will show up. This could be used
+ to interrupt a user and do special commands without them seeing them.
+ For now, the only command would be "ATO" (Attention, Originate) to go
+ back to the active Telnet session. There is nothing in the example
+ to make use of this, but eventually the sesATParser code will be part
+ of a larger project to use the Arduino as an ethernet gateway with
+ serial/RS232 devices.
+  
  For a production environment, there's probably little use for this, other
  than having a way to enter admin mode or something if that was part of
  your project.
  
- More to come...
+ The example TelnetServerDemo can be used as the basis for your custom
+ application. You will see it handles the printing of the command prompt
+ and parsing the commands that come back from telnetInput().
  
+ More to come...

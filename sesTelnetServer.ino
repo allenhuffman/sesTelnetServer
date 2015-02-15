@@ -21,10 +21,11 @@ __asm volatile ("nop");
  
  2013-04-12 0.00 allenh - First posted to www.subethasoftware.com.
  2014-03-03 1.00 allenh - Posted to GitHub.
+ 2015-02-14 1.01 allenh - Adding some "const" to make it build with 1.6.0.
  
  CHECK BACK FOR UPDATES! Much more still to be done...
  -----------------------------------------------------------------------------*/
-#define VERSION "1.00"
+#define VERSION "1.01"
 
 /*---------------------------------------------------------------------------*/
 // Telnet protocol stuff.
@@ -191,7 +192,7 @@ const char DONTstr[] FLASHMEM = "DONT";
 const char IACstr[]  FLASHMEM = "IAC";
 
 // Create an array of pointers to Flash strings, in Flash.
-const char *telnetCmd[] FLASHMEM = // 240-255
+const char * const telnetCmd[] FLASHMEM = // 240-255
 {
   SEstr, NOPstr, DMstr, BRKstr, IPstr, AOstr, AYTstr, ECstr,
   ELstr, GAstr, SBstr, WILLstr, WONTstr, DOstr, DONTstr, IACstr
@@ -266,7 +267,7 @@ typedef struct
 } 
 TelnetOptStruct;
 
-TelnetOptStruct telnetOpt[] FLASHMEM =
+const TelnetOptStruct telnetOpt[] FLASHMEM =
 {
   { 
     OPT_TRANSBIN,   opt_transbin       }
