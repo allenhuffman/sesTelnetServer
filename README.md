@@ -18,10 +18,8 @@ http://subethasoftware.com/2013/04/15/sub-etha-softwares-arduino-telnet-server/
 
 REVISION
 ========
-2014-03-03 allenh - Initial, hastily created README file.
-2015-02-14 allenh - To build for Arduino 1.6.0, I needed to add some "const"
-           declarations to some of the PROGMEM flash strings. Expanded the
-           "RUNNING" section of this README.
+* 2014-03-03 allenh - Initial, hastily created README file.
+* 2015-02-14 allenh - To build for Arduino 1.6.0, I needed to add some "const" declarations to some of the PROGMEM flash strings. Expanded the "RUNNING" section of this README.
 
 FILES
 =====
